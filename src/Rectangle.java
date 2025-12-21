@@ -1,3 +1,4 @@
+// Создаем rectangle с width, height и ID
 public class Rectangle {
     private double width;
     private double height;
@@ -10,9 +11,9 @@ public class Rectangle {
         this.id = idGen++;
     }
 
-    public Rectangle(double width, double height) throws IllegalAccessException {
-        this();
-        setWidth(width);
+    public Rectangle(double width, double height) {
+        this(); // вызывает default constructor
+        setWidth(width);   // сеттер для validation
         setHeight(height);
     }
 
@@ -24,17 +25,23 @@ public class Rectangle {
         return height;
     }
 
-    public void setWidth(double width) throws IllegalAccessException {
+    public int getId() {
+        return id;
+    }
+
+    // validation
+    public void setWidth(double width) {
         if (width <= 0) {
-            throw new IllegalAccessException("width should be > 0");
+            throw new IllegalArgumentException("Width must be positive");
         }
         this.width = width;
     }
 
-    public void setHeight(double height) throws IllegalAccessException {
+    public void setHeight(double height) {
         if (height <= 0) {
-            throw new IllegalAccessException("height should be > 0");
+            throw new IllegalArgumentException("Height must be positive");
         }
+        this.height = height;
     }
 
     public double area() {
@@ -45,8 +52,8 @@ public class Rectangle {
         return 2 * (width + height);
     }
 
-    @Override // overriding toString means that toString already existed
+    @Override
     public String toString() {
-       return "Rectangle id: " + id + " width: " + width + " height: " + height;
+        return "Rectangle [id=" + id + ", width=" + width + ", height=" + height + "]";
     }
 }

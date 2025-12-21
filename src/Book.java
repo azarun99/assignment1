@@ -1,7 +1,10 @@
 import java.time.Year;
 
+/**
+ * Represents a book in the library.
+ * I added a static ID generator and an availability flag.
+ */
 public class Book {
-
     private int id;
     private static int idGen = 1;
     private String title;
@@ -9,13 +12,11 @@ public class Book {
     private int year;
     private boolean available;
 
-    // Default constructor
     public Book() {
         this.id = idGen++;
-        this.available = true;
+        this.available = true; // New books are available by default
     }
 
-    // Constructor with parameters
     public Book(String title, String author, int year) {
         this();
         setTitle(title);
@@ -23,7 +24,6 @@ public class Book {
         setYear(year);
     }
 
-    // Getters
     public int getId() {
         return id;
     }
@@ -44,19 +44,18 @@ public class Book {
         return available;
     }
 
-    // Setters with validation
     public void setTitle(String title) {
         if (title == null || title.trim().isEmpty()) {
-            throw new IllegalArgumentException("Title must not be empty");
+            throw new IllegalArgumentException("Title cannot be empty");
         }
-        this.title = title;
+        this.title = title.trim();
     }
 
     public void setAuthor(String author) {
         if (author == null || author.trim().isEmpty()) {
-            throw new IllegalArgumentException("Author must not be empty");
+            throw new IllegalArgumentException("Author cannot be empty");
         }
-        this.author = author;
+        this.author = author.trim();
     }
 
     public void setYear(int year) {
@@ -67,11 +66,6 @@ public class Book {
         this.year = year;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
-
-    // Borrow / return methods
     public void markAsBorrowed() {
         this.available = false;
     }
@@ -82,11 +76,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book [id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", year=" + year +
-                ", available=" + (available ? "Yes" : "No") +
-                "]";
+        String status = available ? "Available" : "Borrowed";
+        return "Book [id=" + id + ", title=" + title + ", author=" + author + ", year=" + year + ", " + status + "]";
     }
 }
